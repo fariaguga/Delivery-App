@@ -32,7 +32,7 @@ Product.init(
   {
     underscored: true,
     sequelize: db,
-    modelName: 'Products',
+    modelName: 'products',
     timestamps: false,
   }
 );

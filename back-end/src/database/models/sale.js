@@ -53,7 +53,7 @@ Sale.init(
   {
     underscored: true,
     sequelize: db,
-    modelName: 'Sales',
+    modelName: 'sales',
     timestamps: false,
   }
 );
