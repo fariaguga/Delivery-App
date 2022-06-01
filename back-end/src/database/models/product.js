@@ -1,40 +1,40 @@
-import { DataTypes, Model } from 'sequelize';
-import db from '.';
+// const { DataTypes, Model } = require('sequelize');
+// const db = require('.');
 
-class Product extends Model {
-  id;
-  name;
-  price;
-  urlImage;
-}
+// class Product extends Model {
+//   id;
+//   name;
+//   price;
+//   urlImage;
+// }
 
-Product.init(
-  {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    price: {
-      type: DataTypes.DECIMAL(4, 2),
-      allowNull: false,
-    },
-    urlImage: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    underscored: true,
-    sequelize: db,
-    modelName: 'products',
-    timestamps: false,
-  }
-);
+// Product.init(
+//   {
+//     id: {
+//       allowNull: false,
+//       autoIncrement: true,
+//       primaryKey: true,
+//       type: DataTypes.INTEGER,
+//     },
+//     name: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     price: {
+//       type: DataTypes.DECIMAL(4, 2),
+//       allowNull: false,
+//     },
+//     urlImage: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//   },
+//   {
+//     underscored: true,
+//     sequelize: db,
+//     modelName: 'products',
+//     timestamps: false,
+//   }
+// );
 
-export default Product;
+// module.exports = Product;
