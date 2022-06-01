@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './styles.module.scss';
+import {
+  validateName,
+  validateEmail,
+  validatePassword } from '../../utils/validateRegister';
 
 function SignUp() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [registerError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -12,6 +20,23 @@ function SignUp() {
       setShowPassword(true);
     }
   };
+
+  const enableButton = useCallback(() => {
+    if (validateName(name) && validateEmail(email) && validatePassword(password)) {
+      console.log('vai');
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [name, email, password]);
+
+  useEffect(() => {
+    enableButton();
+  }, [name, email, password, enableButton]);
+
+  useEffect(() => {
+    console.log('diiiii', isDisabled);
+  }, [isDisabled]);
 
   return (
     <div className={ styles.container }>
@@ -24,17 +49,21 @@ function SignUp() {
           <input
             data-testid="common_register__input-name"
             id="email-input"
-            type="email"
+            type="text"
             placeholder="email@trybeer.com.br"
+            value={ name }
+            onChange={ ({ target }) => setName(target.value) }
           />
         </label>
         <label htmlFor="email-input">
-          Login
+          Email
           <input
             data-testid="common_register__input-email"
             id="email-input"
             type="email"
             placeholder="email@trybeer.com.br"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
 
@@ -45,6 +74,8 @@ function SignUp() {
             id="password-input"
             type={ showPassword ? 'password' : 'text' }
             placeholder="insira sua senha"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
           />
           <button
             className={ styles.btnIcons }
@@ -59,6 +90,7 @@ function SignUp() {
           type="submit"
           data-testid="common_register__button-register"
           className={ styles.btnLogin }
+          disabled={ !isDisabled }
         >
           CADASTRAR
         </button>
