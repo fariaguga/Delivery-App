@@ -34,10 +34,6 @@ function SignUp() {
     enableButton();
   }, [name, email, password, enableButton]);
 
-  useEffect(() => {
-    console.log('diiiii', isDisabled);
-  }, [isDisabled]);
-
   return (
     <div className={ styles.container }>
       <div className={ styles.logo }>
@@ -91,6 +87,7 @@ function SignUp() {
           data-testid="common_register__button-register"
           className={ styles.btnLogin }
           disabled={ !isDisabled }
+          onClick={ () => handleClick() }
         >
           CADASTRAR
         </button>
