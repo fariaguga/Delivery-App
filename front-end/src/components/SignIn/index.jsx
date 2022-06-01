@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
 
 function SignIn() {
+  const MIN_PASS_LENGTH = 6;
   const [loginError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -13,6 +17,22 @@ function SignIn() {
       setShowPassword(true);
     }
   };
+
+  const validateInputs = useCallback(
+    () => {
+      const emailRegex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/gm;
+
+      if (emailRegex.test(email) && password.length >= MIN_PASS_LENGTH) {
+        setDisableBtn(false);
+      } else {
+        setDisableBtn(true);
+      }
+    }, [email, password],
+  );
+
+  useEffect(() => {
+    validateInputs();
+  }, [email, password, validateInputs]);
 
   return (
     <div className={ styles.container }>
@@ -28,6 +48,8 @@ function SignIn() {
             id="email-input"
             type="email"
             placeholder="email@trybeer.com.br"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
 
@@ -38,6 +60,8 @@ function SignIn() {
             id="password-input"
             type={ showPassword ? 'password' : 'text' }
             placeholder="insira sua senha"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
           />
           <button
             className={ styles.btnIcons }
@@ -52,6 +76,7 @@ function SignIn() {
           type="submit"
           data-testid="common_login__button-login"
           className={ styles.btnLogin }
+          disabled={ disableBtn }
         >
           LOGIN
         </button>
