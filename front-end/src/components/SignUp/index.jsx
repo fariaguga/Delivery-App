@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   validateName,
@@ -7,10 +8,11 @@ import {
 import api from '../../services/api';
 
 function SignUp() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [registerError] = useState(false);
+  const [registerError, setRegisterError] = useState(true);
   const [showPassword, setShowPassword] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -42,7 +44,7 @@ function SignUp() {
       email,
       password,
     };
-    api.post('register', data)
+    api.post('/register', data)
       .then(() => {
         setName('');
         setEmail('');
@@ -53,6 +55,7 @@ function SignUp() {
         setName('');
         setEmail('');
         setPassword('');
+        setRegisterError(false);
         console.log(error);
       });
   };
@@ -118,10 +121,10 @@ function SignUp() {
       </form>
 
       <p
-        hidden={ !registerError }
+        hidden={ registerError }
         data-testid="common_register__element-invalid_register"
       >
-        Mensagem de erro
+        Usuário já existe!
       </p>
     </div>
   );
