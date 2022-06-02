@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
+import api from '../../services/api';
+import navigateByRole from '../../utils/definePermission';
 
 function SignIn() {
-  const [loginError] = useState(false);
+  const MIN_PASS_LENGTH = 6;
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -12,6 +20,38 @@ function SignIn() {
     } else {
       setShowPassword(true);
     }
+  };
+
+  const validateInputs = useCallback(
+    () => {
+      const emailRegex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/gm;
+
+      if (emailRegex.test(email) && password.length >= MIN_PASS_LENGTH) {
+        setDisableBtn(false);
+      } else {
+        setDisableBtn(true);
+      }
+    }, [email, password],
+  );
+
+  useEffect(() => {
+    validateInputs();
+  }, [email, password, validateInputs]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const data = {
+      email,
+      password,
+    };
+
+    api.post('/login', data)
+      .then(({ data: { role } }) => {
+        setLoginError(false);
+        navigateByRole(role, navigate);
+      })
+      .catch(() => setLoginError(true));
   };
 
   return (
@@ -28,6 +68,8 @@ function SignIn() {
             id="email-input"
             type="email"
             placeholder="email@trybeer.com.br"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
           />
         </label>
 
@@ -38,6 +80,8 @@ function SignIn() {
             id="password-input"
             type={ showPassword ? 'password' : 'text' }
             placeholder="insira sua senha"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
           />
           <button
             className={ styles.btnIcons }
@@ -52,6 +96,8 @@ function SignIn() {
           type="submit"
           data-testid="common_login__button-login"
           className={ styles.btnLogin }
+          disabled={ disableBtn }
+          onClick={ (e) => handleLogin(e) }
         >
           LOGIN
         </button>
@@ -60,6 +106,7 @@ function SignIn() {
           type="button"
           data-testid="common_login__button-register"
           className={ styles.btnRegister }
+          onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
         </button>
@@ -69,7 +116,7 @@ function SignIn() {
         hidden={ !loginError }
         data-testid="common_login__element-invalid-email"
       >
-        Mensagem de erro
+        E-mail ou senha inválida
       </p>
     </div>
   );

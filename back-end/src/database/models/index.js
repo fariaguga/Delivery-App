@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
-import * as config from '../config/config';
+const { Sequelize } = require('sequelize');
+const config = require('../config/config');
 
-export default new Sequelize(config);
+module.exports = new Sequelize(config.development);
