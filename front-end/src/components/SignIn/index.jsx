@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
+import api from '../../services/api';
+import navigateByRole from '../../utils/definePermission';
 
 function SignIn() {
   const MIN_PASS_LENGTH = 6;
-  const [loginError] = useState(false);
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +37,22 @@ function SignIn() {
   useEffect(() => {
     validateInputs();
   }, [email, password, validateInputs]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const data = {
+      email,
+      password,
+    };
+
+    api.post('/login', data)
+      .then(({ data: { role } }) => {
+        setLoginError(false);
+        navigateByRole(role, navigate);
+      })
+      .catch(() => setLoginError(true));
+  };
 
   return (
     <div className={ styles.container }>
@@ -77,6 +97,7 @@ function SignIn() {
           data-testid="common_login__button-login"
           className={ styles.btnLogin }
           disabled={ disableBtn }
+          onClick={ (e) => handleLogin(e) }
         >
           LOGIN
         </button>
@@ -94,7 +115,7 @@ function SignIn() {
         hidden={ !loginError }
         data-testid="common_login__element-invalid-email"
       >
-        Mensagem de erro
+        E-mail ou senha inválida
       </p>
     </div>
   );

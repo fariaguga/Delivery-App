@@ -9,6 +9,9 @@ function App() {
       <Routes>
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/admin/manage" element={ <h1>rota /admin/manage</h1> } />
+        <Route path="/customer/products" element={ <h1>rota /customer/products</h1> } />
+        <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
       </Routes>
     </BrowserRouter>
   );
