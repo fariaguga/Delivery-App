@@ -20,6 +20,24 @@ class UserService {
 
     return userFound;
   }
+
+  async createUser(name, email, password) {
+    const encryptedPass = md5(password);
+    console.log(encryptedPass);
+    console.log(password);
+    const userFound = await this.model.findOne({ where: { email } });
+
+    if (userFound) {
+      return null;
+    }
+    const newUser = await this.model
+      .create({ name, email, password: encryptedPass, role: 'customer' });
+    if (!newUser) {
+      return null;
+    }
+
+    return newUser;
+  }
 }
 
 module.exports = UserService;
