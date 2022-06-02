@@ -4,6 +4,7 @@ import {
   validateName,
   validateEmail,
   validatePassword } from '../../utils/validateRegister';
+import api from '../../services/api';
 
 function SignUp() {
   const [name, setName] = useState('');
@@ -34,9 +35,31 @@ function SignUp() {
     enableButton();
   }, [name, email, password, enableButton]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const data = {
+      name,
+      email,
+      password,
+    };
+    api.post('register', data)
+      .then(() => {
+        setName('');
+        setEmail('');
+        setPassword('');
+        navigate('/customer/products');
+      })
+      .catch((error) => {
+        setName('');
+        setEmail('');
+        setPassword('');
+        console.log(error);
+      });
+  };
+
   return (
     <div className={ styles.container }>
-      <div className={ styles.logo }>
+      <div className={ styles.title }>
         <h2>Cadastro</h2>
       </div>
       <form className={ styles.form }>
@@ -87,7 +110,7 @@ function SignUp() {
           data-testid="common_register__button-register"
           className={ styles.btnLogin }
           disabled={ !isDisabled }
-          onClick={ () => handleClick() }
+          onClick={ (e) => handleClick(e) }
         >
           CADASTRAR
         </button>
