@@ -3,7 +3,7 @@ import React from 'react';
 
 function ProductCard({ product }) {
   return (
-    <>
+    <section>
       <span
         data-testid={ `customer_products__element-card-title-${product.id}` }
       >
@@ -30,11 +30,10 @@ function ProductCard({ product }) {
           -
         </button>
 
-        <span
+        <input
+          type="text"
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        >
-          0
-        </span>
+        />
 
         <button
           type="button"
@@ -43,7 +42,7 @@ function ProductCard({ product }) {
           +
         </button>
       </div>
-    </>
+    </section>
   );
 }
 
