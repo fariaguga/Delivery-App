@@ -13,7 +13,7 @@ function ProductCard({ product }) {
       <span
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
-        { product.price }
+        { product.price.toString().replace('.', ',')}
       </span>
 
       <img
