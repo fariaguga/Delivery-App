@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
 import api from '../../services/api';
 import navigateByRole from '../../utils/definePermission';
+import { setLocalStorage } from '../../utils/localStorage';
 
 function SignIn() {
   const MIN_PASS_LENGTH = 6;
@@ -41,15 +42,16 @@ function SignIn() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const data = {
+    const dataLogin = {
       email,
       password,
     };
 
-    api.post('/login', data)
-      .then(({ data: { role } }) => {
+    api.post('/login', dataLogin)
+      .then(({ data }) => {
         setLoginError(false);
-        navigateByRole(role, navigate);
+        navigateByRole(data.role, navigate);
+        setLocalStorage('user', data);
       })
       .catch(() => setLoginError(true));
   };

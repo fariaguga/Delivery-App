@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getLocalStorage, removeItem } from '../../utils/localStorage';
 import styles from './styles.module.scss';
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState('');
+  useEffect(() => {
+    setUser(getLocalStorage('user'));
+  }, []);
+
+  const logout = () => {
+    removeItem('user');
+    navigate('/login');
+  };
   return (
     <nav className={ styles.container }>
       <button
@@ -21,12 +33,13 @@ function Navbar() {
       <h2
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        Nome
+        { user.name }
       </h2>
 
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => logout() }
       >
         Sair
       </button>
