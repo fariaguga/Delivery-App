@@ -7,17 +7,19 @@ class UserController {
     this.login = this.login.bind(this);
   }
 
-  async login(req, res, next) {
+  async login(req, res, _next) {
     try {
       const { email, password } = req.body;
       const serviceResponse = await this.service.checkUser(email, password);
 
-      if (!serviceResponse) return res.status(404).json({ message: '404' });
+      if (!serviceResponse) {
+        return res.status(404).json({ message: 'not found' });
+      }
 
       return res.status(200).json(serviceResponse);
     } catch (e) {
       console.error(e);
-      next(e);
+      // next(e);
     }
   }
 }
