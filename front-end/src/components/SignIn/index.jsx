@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
 
 function SignIn() {
+  const navigate = useNavigate();
   const [loginError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
 
@@ -60,6 +62,7 @@ function SignIn() {
           type="button"
           data-testid="common_login__button-register"
           className={ styles.btnRegister }
+          onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
         </button>
