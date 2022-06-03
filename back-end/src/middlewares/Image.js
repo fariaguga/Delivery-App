@@ -1,10 +1,15 @@
+const imageOptions = require('../utils/imageOptions');
+
 async function getImage(req, res, _next) {
   const image = req.path.split('/')[2];
 
-  const PROJECT_PATH = '/home/peres/projetos/sd-015-b-project-delivery-app';
+  const PROJECT_PATH = __dirname.split('/back-end')[0];
   const FOLDER_PATH = '/back-end/public/products_images';
 
-  return res.sendFile(`${PROJECT_PATH}${FOLDER_PATH}/${image}`);
+  if (imageOptions.includes(image)) {
+    return res.sendFile(`${PROJECT_PATH}${FOLDER_PATH}/${image}`);
+  }
+  return res.status(404).end();
 }
 
 module.exports = getImage;
