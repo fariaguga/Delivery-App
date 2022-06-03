@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
+import cartContext from '../context/cartContext';
 import api from '../services/api';
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const [filteredCart, setFilteredCart] = useState([]);
+  const { total, cart } = useContext(cartContext);
 
   useEffect(() => {
     api.get('/products')
@@ -12,7 +15,12 @@ function Products() {
         setProducts(response.data);
       })
       .catch((e) => console.error(e));
-  }, []);
+  }, [filteredCart]);
+
+  useEffect(() => {
+    const newCart = cart.filter((item) => item.quantity === 0);
+    setFilteredCart(newCart);
+  }, [cart]);
 
   return (
     <>
@@ -25,6 +33,13 @@ function Products() {
           />
         ))}
       </main>
+      <button
+        type="button"
+        data-testid="customer_products__checkout-bottom-value"
+      >
+        {`Ver carrinho: ${total
+          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}`}
+      </button>
     </>
   );
 }

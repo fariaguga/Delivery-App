@@ -1,15 +1,39 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import cartContext from '../../context/cartContext';
 import styles from './styles.module.scss';
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
+  const { cart, setCart } = useContext(cartContext);
 
   const validateQuantity = (qty) => {
     if (qty >= 0) {
       setQuantity(qty);
     }
   };
+
+  const updateCart = useCallback(
+    () => {
+      const alreadyOnCart = cart.find((item) => item.id === product.id);
+
+      if (alreadyOnCart) {
+        const index = cart.indexOf(alreadyOnCart);
+        cart[index].quantity = quantity;
+        setCart(cart);
+      } else {
+        const item = {
+          ...product,
+          quantity,
+        };
+        cart.push(item);
+      }
+    }, [cart, product, quantity, setCart],
+  );
+
+  useEffect(() => {
+    updateCart();
+  }, [updateCart]);
 
   return (
     <section className={ styles.container }>
@@ -70,7 +94,7 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     urlImage: PropTypes.string,
   }).isRequired,
 };

@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import CartProvider from './context/cartProvider';
 
 function App() {
   return (
@@ -14,7 +15,14 @@ function App() {
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
         <Route path="/admin/manage" element={ <h1>rota /admin/manage</h1> } />
-        <Route path="/customer/products" element={ <Products /> } />
+        <Route
+          path="/customer/products"
+          element={
+            <CartProvider>
+              <Products />
+            </CartProvider>
+          }
+        />
         <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
       </Routes>
     </BrowserRouter>
