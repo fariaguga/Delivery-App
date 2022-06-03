@@ -20,6 +20,8 @@ function ProductCard({ product }) {
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         src={ product.urlImage }
         alt={ product.name }
+        width="100px"
+        height="100px"
       />
 
       <div>
@@ -32,6 +34,7 @@ function ProductCard({ product }) {
 
         <input
           type="text"
+          value="0"
           data-testid={ `customer_products__input-card-quantity-${product.id}` }
         />
 
