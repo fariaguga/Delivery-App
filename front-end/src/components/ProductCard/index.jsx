@@ -1,8 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 
 function ProductCard({ product }) {
+  const [quantity, setQuantity] = useState(0);
+
+  const validateQuantity = (qty) => {
+    if (qty >= 0) {
+      setQuantity(qty);
+    }
+  };
+
   return (
     <section className={ styles.container }>
       <div>
@@ -33,19 +41,22 @@ function ProductCard({ product }) {
           <button
             type="button"
             data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+            onClick={ () => validateQuantity(quantity - 1) }
           >
             -
           </button>
 
           <input
-            type="text"
-            value="0"
+            type="number"
+            value={ quantity }
+            onChange={ ({ target }) => validateQuantity(Number(target.value)) }
             data-testid={ `customer_products__input-card-quantity-${product.id}` }
           />
 
           <button
             type="button"
             data-testid={ `customer_products__button-card-add-item-${product.id}` }
+            onClick={ () => validateQuantity(quantity + 1) }
           >
             +
           </button>
