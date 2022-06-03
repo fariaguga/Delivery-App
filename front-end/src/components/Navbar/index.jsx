@@ -16,33 +16,41 @@ function Navbar() {
   };
   return (
     <nav className={ styles.container }>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </button>
+      <section>
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          className={ styles.btnProducts }
+        >
+          Produtos
+        </button>
 
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        Meus pedidos
-      </button>
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-orders"
+          className={ styles.btnOrder }
+        >
+          Meus pedidos
+        </button>
+      </section>
+      <section className={ styles.containerUser }>
+        <button
+          type="button"
+          className={ styles.btnUser }
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          { user.name }
+        </button>
 
-      <h2
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        { user.name }
-      </h2>
-
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
-      >
-        Sair
-      </button>
+        <button
+          type="button"
+          className={ styles.btnExit }
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => logout() }
+        >
+          Sair
+        </button>
+      </section>
     </nav>
   );
 }

@@ -17,7 +17,7 @@ function Products() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={ { display: 'flex', flexWrap: 'wrap' } }>
         {products.map((item) => (
           <ProductCard
             key={ item.id }
