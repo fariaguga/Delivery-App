@@ -4,6 +4,7 @@ import cartContext from './cartContext';
 
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [cartFilter, setCartFilter] = useState([]);
   const [total, setTotal] = useState(0);
 
   const states = {
@@ -11,6 +12,8 @@ function CartProvider({ children }) {
     setCart,
     total,
     setTotal,
+    cartFilter,
+    setCartFilter,
   };
 
   return (

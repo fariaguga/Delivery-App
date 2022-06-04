@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
-  const { cart, setCart } = useContext(cartContext);
+  const { cart, setCart, setCartFilter, setTotal } = useContext(cartContext);
 
   const validateQuantity = (qty) => {
     if (qty >= 0) {
@@ -20,6 +20,11 @@ function ProductCard({ product }) {
       if (alreadyOnCart) {
         const index = cart.indexOf(alreadyOnCart);
         cart[index].quantity = quantity;
+        const newCart = cart.filter((item) => item.quantity !== 0);
+        if (newCart.length === 0) {
+          setTotal(0);
+        }
+        setCartFilter(newCart);
         setCart(cart);
       } else {
         const item = {
@@ -28,7 +33,7 @@ function ProductCard({ product }) {
         };
         cart.push(item);
       }
-    }, [cart, product, quantity, setCart],
+    }, [cart, product, quantity, setCart, setCartFilter, setTotal],
   );
 
   useEffect(() => {

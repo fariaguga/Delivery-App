@@ -23,6 +23,7 @@ function App() {
             </CartProvider>
           }
         />
+        <Route path="/customer/checkout" element={ <h1>rota /customer/checkout</h1> } />
         <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
       </Routes>
     </BrowserRouter>
