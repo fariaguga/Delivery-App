@@ -9,6 +9,7 @@ function Products() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { total, cartFilter, setTotal } = useContext(cartContext);
+  const [disableBtn, setDisableBtn] = useState(true);
 
   useEffect(() => {
     api.get('/products')
@@ -17,6 +18,14 @@ function Products() {
       })
       .catch((e) => console.error(e));
   }, []);
+
+  useEffect(() => {
+    if (total === 0) {
+      setDisableBtn(true);
+    } else {
+      setDisableBtn(false);
+    }
+  }, [total]);
 
   useEffect(() => {
     let fullPrice = 0;
@@ -39,18 +48,16 @@ function Products() {
       </main>
       <button
         type="button"
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
+        disabled={ disableBtn }
         onClick={ () => navigate('/customer/checkout') }
       >
-        {total.toFixed(2).toString().replace('.', ',')}
-        {/* {`Ver carrinho: ${total
-          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}`} */}
-      </button>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-      >
-        Carrinho
+        Ver Carrinho:
+        <span
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {total.toFixed(2).toString().replace('.', ',')}
+        </span>
       </button>
     </>
   );
