@@ -6,6 +6,7 @@ import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import CartProvider from './context/cartProvider';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -23,7 +24,14 @@ function App() {
             </CartProvider>
           }
         />
-        <Route path="/customer/checkout" element={ <h1>rota /customer/checkout</h1> } />
+        <Route
+          path="/customer/checkout"
+          element={
+            <CartProvider>
+              <Checkout />
+            </CartProvider>
+          }
+        />
         <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
       </Routes>
     </BrowserRouter>
