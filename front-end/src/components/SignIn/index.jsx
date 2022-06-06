@@ -118,7 +118,7 @@ function SignIn() {
         hidden={ !loginError }
         data-testid="common_login__element-invalid-email"
       >
-        E-mail ou senha inválida
+        E-mail ou senha inválida!
       </p>
     </div>
   );
