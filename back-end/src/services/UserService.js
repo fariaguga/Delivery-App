@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const UserModel = require('../database/models/user');
+const { jwtGenerator } = require('../utils/auth');
 
 class UserService {
   constructor(model = UserModel()) {
@@ -18,7 +19,14 @@ class UserService {
       return null;
     }
 
-    return userFound;
+    const payload = {
+      email: userFound.dataValues.email,
+      name: userFound.dataValues.name,
+      role: userFound.dataValues.role,
+    };
+
+    const token = jwtGenerator(payload);
+    return { ...payload, token };
   }
 
   async createUser(name, email, password) {
