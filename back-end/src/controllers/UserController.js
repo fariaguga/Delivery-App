@@ -6,6 +6,7 @@ class UserController {
 
     this.login = this.login.bind(this);
     this.create = this.create.bind(this);
+    this.findAll = this.findAll.bind(this);
   }
 
   async login(req, res, _next) {
@@ -37,6 +38,16 @@ class UserController {
     } catch (e) {
       console.error(e);
       // next(e);
+    }
+  }
+
+  async findAll(_req, res, _next) {
+    try {
+      const serviceResponse = await this.service.findAll();
+
+      return res.status(200).json(serviceResponse);
+    } catch (error) {
+      console.log(error);
     }
   }
 }

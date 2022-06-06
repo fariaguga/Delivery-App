@@ -31,8 +31,6 @@ class UserService {
 
   async createUser(name, email, password) {
     const encryptedPass = md5(password);
-    console.log(encryptedPass);
-    console.log(password);
     const userFound = await this.model.findOne({ where: { email } });
 
     if (userFound) {
@@ -45,6 +43,12 @@ class UserService {
     }
 
     return newUser;
+  }
+
+  async findAll() {
+    const allUsers = await this.model.findAll();
+
+    return allUsers;
   }
 }
 

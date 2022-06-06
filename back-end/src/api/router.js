@@ -11,6 +11,7 @@ const productController = new ProductController();
 router.post('/login', userController.login);
 router.post('/register', userController.create);
 router.get('/products', productController.findAll);
+router.get('/users', userController.findAll);
 router.get('/images/*', getImage);
 
 module.exports = router;
