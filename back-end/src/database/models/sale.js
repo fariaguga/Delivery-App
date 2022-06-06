@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('.');
 const User = require('./user');
+const UserModel = User();
 
 module.exports = () => {
   class Sale extends Model {
@@ -54,16 +55,17 @@ module.exports = () => {
     {
       underscored: true,
       sequelize: db,
-      modelName: 'sales',
+      modelName: 'Sale',
+      tableName: 'sales',
       timestamps: false,
     }
   );
 
-  Sale.belongsTo(User, { foreignKey: 'userId' });
-  Sale.belongsTo(User, { foreignKey: 'sellerId' });
+  Sale.belongsTo(UserModel, { foreignKey: 'userId' });
+  Sale.belongsTo(UserModel, { foreignKey: 'sellerId' });
 
-  User.hasMany(Sale, { foreignKey: 'userId' });
-  User.hasMany(Sale, { foreignKey: 'sellerId' });
+  UserModel.hasMany(Sale, { foreignKey: 'userId' });
+  UserModel.hasMany(Sale, { foreignKey: 'sellerId' });
 
   return Sale;
 };
