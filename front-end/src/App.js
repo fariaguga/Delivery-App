@@ -33,6 +33,10 @@ function App() {
           }
         />
         <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
+        <Route
+          path="/customer/orders/:id"
+          element={ <h1>rota /customer/orders/id</h1> }
+        />
       </Routes>
     </BrowserRouter>
   );

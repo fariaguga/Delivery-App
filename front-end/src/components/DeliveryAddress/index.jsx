@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import cartContext from '../../context/cartContext';
 import api from '../../services/api';
+import { getLocalStorage } from '../../utils/localStorage';
 
 function DeliveryAddress() {
   const [sellers, setSellers] = useState([]);
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState(0);
   const [seller, setSeller] = useState('');
+  const { total } = useContext(cartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.get('/users')
@@ -13,15 +18,42 @@ function DeliveryAddress() {
         const allSellers = response
           .data.filter((user) => user.role === 'seller');
 
-        setSeller(allSellers[0].name);
+        setSeller(allSellers[0]);
 
         setSellers(allSellers);
       });
   }, []);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { id, token } = getLocalStorage('user');
+
+    const body = {
+      userId: id,
+      sellerId: seller.id,
+      totalPrice: String(total.toFixed(2)),
+      deliveryAddress: address,
+      deliveryNumber: number,
+    };
+
+    const headers = {
+      Authorization: token,
+    };
+
+    console.log(body);
+
+    api.post('/sales', body, { headers })
+      .then((response) => {
+        navigate(`/customer/orders/${response.data.id}`);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   return (
     <form
-      onSubmit={ () => console.log('submitado!') }
+      onSubmit={ handleSubmit }
     >
       <h2>Detalhes e Endereço para Entrega</h2>
       <label htmlFor="customer_checkout__select-seller">
@@ -29,7 +61,7 @@ function DeliveryAddress() {
         <select
           id="customer_checkout__select-seller"
           data-testid="customer_checkout__select-seller"
-          value={ seller }
+          value={ seller.name }
           onChange={ ({ target }) => setSeller(target.value) }
         >
           {sellers.map((item) => (
@@ -57,7 +89,7 @@ function DeliveryAddress() {
       <label htmlFor="customer_checkout__input-addressNumber">
         Número
         <input
-          type="number"
+          type="text"
           id="customer_checkout__input-addressNumber"
           data-testid="customer_checkout__input-addressNumber"
           value={ number }
