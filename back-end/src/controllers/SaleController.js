@@ -1,4 +1,5 @@
 const SaleService = require('../services/SaleService');
+const { jwtValidate } = require('../utils/auth');
 
 class SaleController {
   constructor(service = new SaleService()) {
@@ -7,9 +8,12 @@ class SaleController {
     this.create = this.create.bind(this);
   }
 
-  async create(req, res, _next) {
+  async create(req, res, next) {
     try {
       const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber } = req.body;
+      const { authorization } = req.headers;
+
+      jwtValidate(authorization);
 
       const saleToCreate = { userId,
         sellerId,
@@ -22,14 +26,11 @@ class SaleController {
 
       const createdSale = await this.service.createSale(saleToCreate);
 
-      if (!createdSale) {
-        return res.status(409).json({ message: 'sale not created' });
-      }
+      if (!createdSale) return res.status(409).json({ message: 'sale not created' });
 
       return res.status(201).json(createdSale);
     } catch (e) {
-      console.error(e);
-      // next(e);
+      next(e);
     }
   }
 }

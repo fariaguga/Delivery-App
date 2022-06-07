@@ -2,12 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 const db = require('.');
 
 module.exports = () => {
-  class Product extends Model {
-    id;
-    name;
-    price;
-    urlImage;
-  }
+  class Product extends Model {}
 
   Product.init(
     {

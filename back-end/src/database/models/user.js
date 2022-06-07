@@ -2,13 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 const db = require('.');
 
 module.exports = () => {
-  class User extends Model {
-    id;
-    name;
-    email;
-    password;
-    role;
-  }
+  class User extends Model {}
 
   User.init(
     {

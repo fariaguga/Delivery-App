@@ -4,16 +4,7 @@ const User = require('./user');
 const UserModel = User();
 
 module.exports = () => {
-  class Sale extends Model {
-    id;
-    userId;
-    sellerId;
-    totalPrice;
-    deliveryAddress;
-    deliveryNumber;
-    saleDate;
-    status;
-  }
+  class Sale extends Model {}
 
   Sale.init(
     {
@@ -33,7 +24,7 @@ module.exports = () => {
       },
       totalPrice: {
         allowNull: false,
-        type: DataTypes.DECIMAL(9, 2),
+        type: DataTypes.STRING,
       },
       deliveryAddress: {
         allowNull: false,

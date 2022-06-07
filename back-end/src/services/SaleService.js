@@ -6,22 +6,20 @@ class SaleService {
   }
 
   async createSale(sale) {
+    console.log('-------------------------------------------------');
+    console.log(sale);
     const newSale = await this.model.create(sale);
 
     if (!newSale) {
-      return null;
+      console.log('sale not created');
+      return { message: 'sale not created' };
     }
 
-    return {
-      id: newSale.id,
-      userId: newSale.dataValues.userId,
-      sellerId: newSale.dataValues.sellerId,
-      totalPrice: newSale.dataValues.totalPrice,
-      deliveryAddress: newSale.dataValues.deliveryAddress,
-      deliveryNumber: newSale.dataValues.deliveryNumber,
-      saleDate: newSale.dataValues.saleDate,
-      status: newSale.dataValues.status,
-    };
+    console.log('-----------------------------------------------');
+    console.log(newSale);
+    console.log('-----------------------------------------------');
+
+    return newSale;
   }
 }
 
