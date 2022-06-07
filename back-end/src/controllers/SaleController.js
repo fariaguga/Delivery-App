@@ -15,16 +15,14 @@ class SaleController {
 
       jwtValidate(authorization);
 
-      const saleToCreate = { userId,
+      const createdSale = await this.service.createSale({ userId,
         sellerId,
         totalPrice,
         deliveryAddress,
         deliveryNumber,
         saleDate: new Date(),
         status: 'pendente',
-      };
-
-      const createdSale = await this.service.createSale(saleToCreate);
+      });
 
       if (!createdSale) return res.status(409).json({ message: 'sale not created' });
 
