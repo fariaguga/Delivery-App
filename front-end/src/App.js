@@ -6,6 +6,7 @@ import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import CartProvider from './context/cartProvider';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -14,7 +15,13 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
-        <Route path="/admin/manage" element={ <h1>rota /admin/manage</h1> } />
+        <Route
+          path="/admin/manage"
+          element=
+          {
+            <Admin />
+          }
+          />
         <Route
           path="/customer/products"
           element={
