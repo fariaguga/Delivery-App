@@ -9,7 +9,7 @@ function DeliveryAddress() {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState(0);
   const [sellerId, setSellerId] = useState(0);
-  const { total } = useContext(cartContext);
+  const { total, cartFilter } = useContext(cartContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function DeliveryAddress() {
       totalPrice: String(total.toFixed(2)),
       deliveryAddress: address,
       deliveryNumber: number,
+      products: cartFilter,
     };
 
     const headers = {
