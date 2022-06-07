@@ -10,7 +10,7 @@ class SaleController {
 
   async create(req, res, next) {
     try {
-      const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber } = req.body;
+      const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = req.body;
       const { authorization } = req.headers;
 
       jwtValidate(authorization);
@@ -25,6 +25,8 @@ class SaleController {
       });
 
       if (!createdSale) return res.status(409).json({ message: 'sale not created' });
+
+      await this.service.createSalesProducts(products, createdSale.id);
 
       return res.status(201).json(createdSale);
     } catch (e) {
