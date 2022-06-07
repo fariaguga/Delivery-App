@@ -21,7 +21,7 @@ class SaleController {
         deliveryAddress,
         deliveryNumber,
         saleDate: new Date(),
-        status: 'pendente',
+        status: 'Pendente',
       });
 
       if (!createdSale) return res.status(409).json({ message: 'sale not created' });
