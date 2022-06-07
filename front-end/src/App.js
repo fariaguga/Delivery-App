@@ -17,11 +17,10 @@ function App() {
         <Route path="/register" element={ <Register /> } />
         <Route
           path="/admin/manage"
-          element=
-          {
+          element={
             <Admin />
           }
-          />
+        />
         <Route
           path="/customer/products"
           element={

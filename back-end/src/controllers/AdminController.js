@@ -14,8 +14,7 @@ class AdminController {
       jwtValidate(authorization);
       
       const { name, email, password, role } = req.body;
-      const createdUser = await this.service.createUser(name, email, password, role);
-      
+      const createdUser = await this.service.createUser(name, email, password, role); 
 
       if (!createdUser) {
         return res.status(409).json({ message: 'user not created' });

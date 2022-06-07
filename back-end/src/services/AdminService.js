@@ -1,6 +1,5 @@
 const md5 = require('md5');
 const UserModel = require('../database/models/user');
-const { jwtGenerator } = require('../utils/auth');
 
 class AdminService {
   constructor(model = UserModel()) {

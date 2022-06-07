@@ -10,7 +10,6 @@ const userController = new UserController();
 const productController = new ProductController();
 const adminController = new AdminController();
 
-
 router.post('/login', userController.login);
 router.post('/register', userController.create);
 router.post('/admin/manage', adminController.create);
