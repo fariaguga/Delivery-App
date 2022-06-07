@@ -8,7 +8,7 @@ function DeliveryAddress() {
   const [sellers, setSellers] = useState([]);
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState(0);
-  const [seller, setSeller] = useState('');
+  const [sellerId, setSellerId] = useState(0);
   const { total } = useContext(cartContext);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function DeliveryAddress() {
         const allSellers = response
           .data.filter((user) => user.role === 'seller');
 
-        setSeller(allSellers[0]);
+        setSellerId(allSellers[0].id);
 
         setSellers(allSellers);
       });
@@ -30,7 +30,7 @@ function DeliveryAddress() {
 
     const body = {
       userId: id,
-      sellerId: seller.id,
+      sellerId,
       totalPrice: String(total.toFixed(2)),
       deliveryAddress: address,
       deliveryNumber: number,
@@ -39,8 +39,6 @@ function DeliveryAddress() {
     const headers = {
       Authorization: token,
     };
-
-    console.log(body);
 
     api.post('/sales', body, { headers })
       .then((response) => {
@@ -61,13 +59,13 @@ function DeliveryAddress() {
         <select
           id="customer_checkout__select-seller"
           data-testid="customer_checkout__select-seller"
-          value={ seller.name }
-          onChange={ ({ target }) => setSeller(target.value) }
+          value={ sellerId }
+          onChange={ ({ target }) => setSellerId(target.value) }
         >
           {sellers.map((item) => (
             <option
               key={ item.id }
-              value={ item.name }
+              value={ item.id }
             >
               { item.name }
             </option>
