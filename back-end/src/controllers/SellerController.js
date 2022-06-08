@@ -9,8 +9,8 @@ class SellerController {
 
   async getAll(req, res, _next) {
     try {
-      const { seller_id } = req.params;
-      const serviceResponse = await this.service.checkSale(seller_id);
+      const { authorization } = req.headers;
+      const serviceResponse = await this.service.checkSale(authorization);
 
       if (!serviceResponse) {
         return res.status(404).json({ message: 'not found' });

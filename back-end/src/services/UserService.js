@@ -20,6 +20,7 @@ class UserService {
     }
 
     const payload = {
+      id: userFound.dataValues.id,
       email: userFound.dataValues.email,
       name: userFound.dataValues.name,
       role: userFound.dataValues.role,
