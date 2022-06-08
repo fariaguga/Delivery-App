@@ -14,6 +14,6 @@ router.post('/login', userController.login);
 router.post('/register', userController.create);
 router.get('/products', productController.findAll);
 router.get('/images/*', getImage);
-router.get('/seller', sellerController.getAll);
+router.get('/seller/orders', sellerController.getAll);
 
 module.exports = router;

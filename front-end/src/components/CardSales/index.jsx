@@ -10,18 +10,27 @@ function CardSales() {
     const { token } = getLocalStorage('user');
     console.log(token);
 
+    const config = {
+      headers: {
+        authorization: token,
+      },
+    };
+
     // api.post('/seller', {}, { headers })
     // .then(({ }) => {
     //   setLoginError(false);
     // })
     // .catch(() => setLoginError(true));
 
-    api.get('/seller')
+    api.get('/seller/orders', config)
       .then((res) => {
         const persons = res.data;
         console.log(persons);
-        setName({ persons });
+        setName(persons);
       });
+  }, []);
+
+  useEffect(() => {
     console.log(name);
   }, [name]);
 
