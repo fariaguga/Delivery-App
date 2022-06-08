@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   validateName,
@@ -9,7 +8,6 @@ import api from '../../services/api';
 import { getLocalStorage } from '../../utils/localStorage';
 
 function SignUp() {
-  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +15,6 @@ function SignUp() {
   const [showPassword, setShowPassword] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [role, setRole] = useState('Vendedor');
-
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -43,11 +40,11 @@ function SignUp() {
   const handleClick = (e) => {
     e.preventDefault();
     const { token } = getLocalStorage('user');
-    let config = {
+    const config = {
       headers: {
         authorization: token,
-      }
-    }
+      },
+    };
     const data = {
       name,
       email,
@@ -119,13 +116,13 @@ function SignUp() {
             <i className="bi bi-eye-slash-fill" />
           </button>
         </label>
-        
 
         <label htmlFor="role-input">
           Tipo
           <select
             data-testid="admin_manage__select-role"
-            id="role-input"j
+            id="role-input"
+            j
             value={ role }
             onChange={ ({ target }) => setRole(target.value) }
           >
@@ -133,7 +130,6 @@ function SignUp() {
             <option value="administrator">Administrador</option>
             <option value="customer">Cliente</option>
           </select>
-
 
         </label>
 
