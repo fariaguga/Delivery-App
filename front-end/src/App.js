@@ -6,6 +6,7 @@ import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import SellerOrders from './pages/Seller-Orders';
+import OrderDetails from './pages/OrderDetails';
 import CartProvider from './context/cartProvider';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         />
         <Route path="/customer/checkout" element={ <h1>rota /customer/checkout</h1> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
+        <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
       </Routes>
     </BrowserRouter>
   );
