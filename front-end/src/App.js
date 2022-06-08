@@ -6,6 +6,7 @@ import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import CartProvider from './context/cartProvider';
+import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
 
 function App() {
@@ -15,12 +16,7 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
-        <Route
-          path="/admin/manage"
-          element={
-            <Admin />
-          }
-        />
+        <Route path="/admin/manage" element={ <Admin /> } />
         <Route
           path="/customer/products"
           element={
@@ -29,8 +25,19 @@ function App() {
             </CartProvider>
           }
         />
-        <Route path="/customer/checkout" element={ <h1>rota /customer/checkout</h1> } />
+        <Route
+          path="/customer/checkout"
+          element={
+            <CartProvider>
+              <Checkout />
+            </CartProvider>
+          }
+        />
         <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
+        <Route
+          path="/customer/orders/:id"
+          element={ <h1>rota /customer/orders/id</h1> }
+        />
       </Routes>
     </BrowserRouter>
   );

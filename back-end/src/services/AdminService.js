@@ -2,7 +2,7 @@ const md5 = require('md5');
 const UserModel = require('../database/models/user');
 
 class AdminService {
-  constructor(model = UserModel()) {
+  constructor(model = UserModel) {
     this.model = model;
   }
   
