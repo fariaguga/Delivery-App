@@ -7,7 +7,7 @@ import { getLocalStorage } from '../../utils/localStorage';
 function DeliveryAddress() {
   const [sellers, setSellers] = useState([]);
   const [address, setAddress] = useState('');
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState('');
   const [sellerId, setSellerId] = useState(0);
   const { total, cartFilter } = useContext(cartContext);
   const navigate = useNavigate();
