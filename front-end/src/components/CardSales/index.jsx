@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { getLocalStorage } from '../../utils/localStorage';
+import api from '../../services/api';
 
 function CardSales() {
+
+  // const [loginError, setLoginError] = useState(false);
+  const [name, setName]= useState();
+  
+  useEffect(() => {
+    const { token } = getLocalStorage('user');
+    console.log(token);
+
+    const headers = {
+      authorization: token,
+    };
+
+    // api.post('/seller', {}, { headers })
+    // .then(({ }) => {
+    //   setLoginError(false);
+    // })
+    // .catch(() => setLoginError(true));
+
+    api.get(`/seller`)
+      .then((res) => {
+        const persons = res.data;
+        console.log(persons);
+        setName({ persons });
+      })
+      console.log(name);    
+  }, []);
+
   return (
     <div>
         <div>Pedido</div>
