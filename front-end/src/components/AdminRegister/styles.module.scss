@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    color: red;
+    position: absolute;
+    top: 650px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    text-indent: 19px;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  margin-top: 50px;
+
+  h2 {
+    color: #001813;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 28px;
+    text-indent: 19px;
+  }
+
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #E5E5E5;
+  background-color: #E5E5E5;
+  width: 425px;
+  height: 420px;
+
+  label {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #001813;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    text-indent: 19px;
+  }
+  
+  input {
+    width: 370px;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 4px;
+    font-size: 25px;
+
+    &::placeholder{
+      font-size: 25px;
+    }
+  }
+
+  select {
+    width: 370px;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 4px;
+    font-size: 25px;
+
+    &::placeholder{
+      font-size: 25px;
+    }
+  }
+}
+
+.btnIcons {
+  border: none;
+  position: absolute;
+  display: flex;
+  margin-left: 340px;
+  margin-top: 45px;
+  background: transparent;
+  cursor: pointer;
+
+  i{
+    font-size: 20px;
+  }
+
+}
+
+.btnLogin {
+  cursor: pointer;
+  width: 370px;
+  height: 60px;
+  border-radius: 10px;
+  background-color:  #036B52;
+  color: #F2FFFC;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 33px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.btnRegister {
+  cursor: pointer;
+  width: 370px;
+  height: 60px;
+  border: 2px solid #036B52;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #036B52;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 33px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
