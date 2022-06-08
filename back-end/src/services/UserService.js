@@ -3,7 +3,7 @@ const UserModel = require('../database/models/user');
 const { jwtGenerator } = require('../utils/auth');
 
 class UserService {
-  constructor(model = UserModel()) {
+  constructor(model = UserModel) {
     this.model = model;
   }
 
@@ -24,6 +24,7 @@ class UserService {
       email: userFound.dataValues.email,
       name: userFound.dataValues.name,
       role: userFound.dataValues.role,
+      id: userFound.dataValues.id,
     };
 
     const token = jwtGenerator(payload);
@@ -32,8 +33,6 @@ class UserService {
 
   async createUser(name, email, password) {
     const encryptedPass = md5(password);
-    console.log(encryptedPass);
-    console.log(password);
     const userFound = await this.model.findOne({ where: { email } });
 
     if (userFound) {
@@ -44,8 +43,15 @@ class UserService {
     if (!newUser) {
       return null;
     }
+    console.log(newUser);
 
     return newUser;
+  }
+
+  async findAll() {
+    const allUsers = await this.model.findAll();
+
+    return allUsers;
   }
 }
 

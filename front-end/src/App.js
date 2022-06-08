@@ -8,6 +8,8 @@ import Products from './pages/Products';
 import SellerOrders from './pages/Seller-Orders';
 import OrderDetails from './pages/OrderDetails';
 import CartProvider from './context/cartProvider';
+import Checkout from './pages/Checkout';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -16,7 +18,7 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
-        <Route path="/admin/manage" element={ <h1>rota /admin/manage</h1> } />
+        <Route path="/admin/manage" element={ <Admin /> } />
         <Route
           path="/customer/products"
           element={
@@ -25,9 +27,20 @@ function App() {
             </CartProvider>
           }
         />
-        <Route path="/customer/checkout" element={ <h1>rota /customer/checkout</h1> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
+        <Route
+          path="/customer/checkout"
+          element={
+            <CartProvider>
+              <Checkout />
+            </CartProvider>
+          }
+        />
+        <Route
+          path="/customer/orders/:id"
+          element={ <h1>rota /customer/orders/id</h1> }
+        />
       </Routes>
     </BrowserRouter>
   );

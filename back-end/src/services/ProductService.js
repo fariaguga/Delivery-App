@@ -1,7 +1,7 @@
 const ProductModel = require('../database/models/product');
 
 class UserService {
-  constructor(model = ProductModel()) {
+  constructor(model = ProductModel) {
     this.model = model;
   }
 

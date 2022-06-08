@@ -11,4 +11,4 @@ sign({ data: payload }, SECRET, jwtConfig);
 
 const jwtValidate = (token) => verify(token, SECRET);
 
-module.exports = { jwtGenerator, jwtValidate }; 
+module.exports = { jwtGenerator, jwtValidate };
