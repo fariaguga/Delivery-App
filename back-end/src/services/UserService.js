@@ -3,7 +3,7 @@ const UserModel = require('../database/models/user');
 const { jwtGenerator } = require('../utils/auth');
 
 class UserService {
-  constructor(model = UserModel()) {
+  constructor(model = UserModel) {
     this.model = model;
   }
 
