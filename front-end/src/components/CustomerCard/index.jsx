@@ -11,10 +11,6 @@ function GetCustomerCard() {
   useEffect(() => {
     const { token } = getLocalStorage('user');
 
-    // if(token) {
-    //   navigate('/customer/products');
-    // }
-
     const config = {
       headers: {
         authorization: token,
@@ -27,6 +23,17 @@ function GetCustomerCard() {
         setCustomers(persons);
       });
   }, []);
+
+  const validateDate = (date) => {
+    const MIN = 10;
+    const formatDate = new Date(date);
+    const day = formatDate.getDate();
+    const month = formatDate.getMonth() + 1;
+    const year = formatDate.getFullYear();
+    const d = `${day < MIN ? `0${day}` : day}`;
+    const m = `${month < MIN ? `0${month}` : month}`;
+    return `${d}/${m}/${year}`;
+  };
 
   const handleClick = (person) => {
     console.log(userId);
@@ -58,13 +65,12 @@ function GetCustomerCard() {
           <div
             data-testid={ `customer_orders__element-order-date-${element.id}` }
           >
-            {element.saleDate}
+            {validateDate(element.saleDate)}
           </div>
           <div
             data-testid={ `customer_orders__element-card-price-${element.id}` }
           >
-            R$
-            {element.totalPrice}
+            {(element.totalPrice).replace('.', ',')}
           </div>
         </div>
       ))}

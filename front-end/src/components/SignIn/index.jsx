@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getLocalStorage } from '../../utils/localStorage';
+import { getLocalStorage, setLocalStorage } from '../../utils/localStorage';
 import styles from './styles.module.scss';
 import Logo from '../../images/logo.png';
 import api from '../../services/api';
 import navigateByRole from '../../utils/definePermission';
-import { setLocalStorage } from '../../utils/localStorage';
 
 function SignIn() {
   const MIN_PASS_LENGTH = 6;
@@ -24,13 +23,13 @@ function SignIn() {
     }
   };
 
-  const checkIfUserIsLogged = () => {
+  const checkIfUserIsLogged = useCallback(() => {
     const { token } = getLocalStorage('user');
 
-    if(token) {
+    if (token) {
       navigate('/customer/products');
     }
-  }
+  }, [navigate]);
 
   const validateInputs = useCallback(
     () => {

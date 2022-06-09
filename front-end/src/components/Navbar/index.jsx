@@ -33,7 +33,7 @@ function Navbar() {
           type="button"
           data-testid="customer_products__element-navbar-link-orders"
           className={ styles.btnOrder }
-          onClick={() => navigateToOrders()}
+          onClick={ () => navigateToOrders() }
         >
           Meus pedidos
         </button>
