@@ -26,5 +26,6 @@ router.get('/products', productController.findAll);
 
 router.get('/images/*', getImage);
 router.get('/seller/orders', sellerController.getAll);
+router.get('/seller/order/:id', saleController.findOne);
 
 module.exports = router;
