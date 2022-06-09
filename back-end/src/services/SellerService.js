@@ -2,7 +2,7 @@ const SaleModel = require('../database/models/sale');
 const { jwtValidate } = require('../utils/auth');
 
 class SellerService {
-  constructor(model = SaleModel()) {
+  constructor(model = SaleModel) {
     this.model = model;
   }
 
@@ -16,7 +16,6 @@ class SellerService {
 
     return salesFound;
   }
-
 }
 
 module.exports = SellerService;
