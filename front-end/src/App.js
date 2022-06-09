@@ -10,6 +10,7 @@ import OrderDetails from './pages/OrderDetails';
 import CartProvider from './context/cartProvider';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import CustomerOrdersDetails from './pages/CustomerOrdersDetails';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
         />
         <Route
           path="/customer/orders/:id"
-          element={ <h1>rota /customer/orders/id</h1> }
+          element={ <CustomerOrdersDetails /> }
         />
       </Routes>
     </BrowserRouter>
