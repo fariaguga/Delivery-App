@@ -22,7 +22,6 @@ class SellerController {
       // next(e);
     }
   }
-
 }
 
 module.exports = SellerController;

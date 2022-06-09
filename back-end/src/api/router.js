@@ -3,7 +3,7 @@ const AdminController = require('../controllers/AdminController');
 const ProductController = require('../controllers/ProductController');
 const SaleController = require('../controllers/SaleController');
 const UserController = require('../controllers/UserController');
-const SellerController = require('../controllers/SellerController')
+const SellerController = require('../controllers/SellerController');
 const getImage = require('../middlewares/Image');
 
 const router = Router();
