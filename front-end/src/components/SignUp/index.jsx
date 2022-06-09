@@ -26,7 +26,6 @@ function SignUp() {
 
   const enableButton = useCallback(() => {
     if (validateName(name) && validateEmail(email) && validatePassword(password)) {
-      console.log('vai');
       setIsDisabled(true);
     } else {
       setIsDisabled(false);

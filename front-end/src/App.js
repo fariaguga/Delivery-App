@@ -5,9 +5,12 @@ import Login from './pages/Login';
 import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import SellerOrders from './pages/Seller-Orders';
+import OrderDetails from './pages/OrderDetails';
 import CartProvider from './context/cartProvider';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import CustomerOrdersDetails from './pages/CustomerOrdersDetails';
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
             </CartProvider>
           }
         />
+        <Route path="/seller/orders" element={ <SellerOrders /> } />
+        <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
         <Route
           path="/customer/checkout"
           element={
@@ -33,10 +38,9 @@ function App() {
             </CartProvider>
           }
         />
-        <Route path="/seller/orders" element={ <h1>rota /seller/orders</h1> } />
         <Route
           path="/customer/orders/:id"
-          element={ <h1>rota /customer/orders/id</h1> }
+          element={ <CustomerOrdersDetails /> }
         />
       </Routes>
     </BrowserRouter>
