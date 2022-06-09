@@ -10,7 +10,6 @@ function CardSales() {
 
   useEffect(() => {
     const { token } = getLocalStorage('user');
-    console.log(token);
 
     const config = {
       headers: {
@@ -21,27 +20,25 @@ function CardSales() {
     api.get('/seller/orders', config)
       .then((res) => {
         const persons = res.data;
-        console.log(persons);
         setSellers(persons);
       });
   }, []);
 
-  useEffect(() => {
-    console.log(sellers);
-  }, [sellers]);
-
-  const handleClick = (sellers) => {
-    setSellerId(sellers.id);
-    navigate(`/seller/orders/${ sellerId }`)  
+  const handleClick = (person) => {
+    console.log(sellerId);
+    setSellerId(person.id);
+    navigate(`/seller/orders/${person.id}`);
   };
-
 
   return (
     <div>
-      {sellers.map((element) => (
-        <div 
-        key={ element.id }
-        onClick={ () => handleClick(element) }
+      {sellers.map((element, index) => (
+        <div
+          key={ element.id }
+          onClick={ () => handleClick(element) }
+          onKeyDown={ () => handleClick(element) }
+          role="button"
+          tabIndex={ index }
         >
           <div
             data-testid={ `seller_orders__element-order-id-${element.id}` }
