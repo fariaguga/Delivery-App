@@ -1,8 +1,6 @@
 const SaleModel = require('../database/models/sale');
 const SalesProducts = require('../database/models/salesProducts');
 
-console.log(SalesProducts);
-
 class SaleService {
   constructor(model = SaleModel, relationModel = SalesProducts) {
     this.model = model;
