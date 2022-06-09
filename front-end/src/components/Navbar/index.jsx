@@ -14,6 +14,10 @@ function Navbar() {
     removeItem('user');
     navigate('/login');
   };
+
+  const navigateToOrders = () => {
+    navigate('/customer/orders');
+  };
   return (
     <nav className={ styles.container }>
       <section>
@@ -29,6 +33,7 @@ function Navbar() {
           type="button"
           data-testid="customer_products__element-navbar-link-orders"
           className={ styles.btnOrder }
+          onClick={() => navigateToOrders()}
         >
           Meus pedidos
         </button>
