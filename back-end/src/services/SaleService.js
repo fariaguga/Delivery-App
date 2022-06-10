@@ -38,24 +38,27 @@ class SaleService {
             model: Product, 
             as: 'product',
           }],
-          // through: { attributes: ['quantity'] },
         },
     });
-    console.log(sale);
     return sale;
   }
 
   async updateStatus(id, status) {
-    const statusUpdate = await this.model.update(
-      {
-        status,
-      },
-      {
-        where: { id },
-      },
+    await this.model.update(
+      { status },
+      { where: { id }, returning: true },
     );
-    // await statusUpdate.save();
-    console.log(statusUpdate);
+    const statusUpdate = await this.model.findOne({
+      where: { id },
+      include: {
+          model: SalesProducts,
+          as: 'sale',
+          include: [{
+            model: Product, 
+            as: 'product',
+          }],
+        },
+    });
     return statusUpdate;
   }
 }
