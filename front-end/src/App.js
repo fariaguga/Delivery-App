@@ -11,6 +11,7 @@ import CartProvider from './context/cartProvider';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
 import CustomerOrdersDetails from './pages/CustomerOrdersDetails';
+import GetCustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
               <Checkout />
             </CartProvider>
           }
+        />
+        <Route
+          path="/customer/orders"
+          element={ <GetCustomerOrders /> }
         />
         <Route
           path="/customer/orders/:id"

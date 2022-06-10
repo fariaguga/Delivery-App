@@ -5,6 +5,7 @@ const SaleController = require('../controllers/SaleController');
 const UserController = require('../controllers/UserController');
 const SellerController = require('../controllers/SellerController');
 const getImage = require('../middlewares/Image');
+const CustomerController = require('../controllers/CustomerController');
 
 const router = Router();
 
@@ -13,6 +14,7 @@ const userController = new UserController();
 const saleController = new SaleController();
 const productController = new ProductController();
 const sellerController = new SellerController();
+const customerController = new CustomerController();
 
 router.post('/login', userController.login);
 router.post('/register', userController.create);
@@ -28,5 +30,6 @@ router.get('/images/*', getImage);
 router.get('/seller/orders', sellerController.getAll);
 router.get('/seller/order/:id', saleController.findOne);
 router.patch('/seller/order/:id', saleController.updateStatus);
+router.get('/customer/orders', customerController.getAll);
 
 module.exports = router;
