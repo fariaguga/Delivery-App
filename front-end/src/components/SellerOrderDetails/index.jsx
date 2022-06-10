@@ -6,6 +6,8 @@ import { getLocalStorage } from '../../utils/localStorage';
 function SellerOrderDetails() {
   const location = useLocation();
   const [order, setOrder] = useState({});
+  const [disablePreparing, setDisablePreparing] = useState(true);
+  const [disableDispatch, setDisableDispatch] = useState(true);
 
   useEffect(() => {
     const id = location.pathname.split('seller/orders/')[1];
@@ -36,6 +38,7 @@ function SellerOrderDetails() {
       .then((res) => {
         const orderUpdate = res.data;
         console.log(orderUpdate);
+        setOrder(orderUpdate);
       }).catch((error) => {
         console.log(error);
       });
@@ -51,6 +54,27 @@ function SellerOrderDetails() {
     const m = `${month < MIN ? `0${month}` : month}`;
     return `${d}/${m}/${year}`;
   };
+
+  const disablePreparingBtn = (valueOrder) => {
+    const disabled = (
+      valueOrder.status === 'Preparando' || valueOrder.status === 'Em Trânsito'
+      || valueOrder.status === 'Entregue'
+    );
+    setDisablePreparing(disabled);
+  };
+
+  const disableDispatchBtn = (valueOrder) => {
+    const disabled = (
+      valueOrder.status === 'Pendente' || valueOrder.status === 'Em Trânsito'
+      || valueOrder.status === 'Entregue'
+    );
+    setDisableDispatch(disabled);
+  };
+
+  useEffect(() => {
+    disableDispatchBtn(order);
+    disablePreparingBtn(order);
+  }, [order]);
 
   return (
     <>
@@ -74,14 +98,15 @@ function SellerOrderDetails() {
           type="button"
           data-testid="seller_order_details__button-preparing-check"
           onClick={ () => handleStatus(order.id, 'Preparando') }
+          disabled={ disablePreparing }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled={ Object.keys(order).length > 0 && order.status === 'Pendente' }
+          disabled={ disableDispatch }
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => handleStatus(order.id, 'Em trânsito') }
+          onClick={ () => handleStatus(order.id, 'Em Trânsito') }
         >
           SAIU PARA ENTREGA
         </button>
