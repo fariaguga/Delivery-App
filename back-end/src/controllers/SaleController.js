@@ -7,6 +7,7 @@ class SaleController {
 
     this.create = this.create.bind(this);
     this.findOne = this.findOne.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
   }
 
   async create(req, res, next) {

@@ -54,7 +54,7 @@ class SaleService {
         where: { id },
       },
     );
-    await statusUpdate.save();
+    // await statusUpdate.save();
     console.log(statusUpdate);
     return statusUpdate;
   }

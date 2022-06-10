@@ -34,6 +34,7 @@ SalesProducts.init(
     underscored: true,
     sequelize: db,
     modelName: 'SalesProducts',
+    tableName: 'sales_products',
     timestamps: false,
   }
 );
