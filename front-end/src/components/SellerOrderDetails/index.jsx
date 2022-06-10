@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import api from '../../services/api';
 import { getLocalStorage } from '../../utils/localStorage';
 
+const EMTRANSITO = 'Em Trânsito';
 function SellerOrderDetails() {
   const location = useLocation();
   const [order, setOrder] = useState({});
@@ -37,7 +38,6 @@ function SellerOrderDetails() {
     api.patch(`/seller/order/${id}`, data, header)
       .then((res) => {
         const orderUpdate = res.data;
-        console.log(orderUpdate);
         setOrder(orderUpdate);
       }).catch((error) => {
         console.log(error);
@@ -55,17 +55,17 @@ function SellerOrderDetails() {
     return `${d}/${m}/${year}`;
   };
 
-  const disablePreparingBtn = (valueOrder) => {
-    const disabled = (
-      valueOrder.status === 'Preparando' || valueOrder.status === 'Em Trânsito'
-      || valueOrder.status === 'Entregue'
-    );
+  const disablePreparingBtn = (value) => {
+    const prep = value.status === 'Preparando';
+    const tras = value.status === EMTRANSITO;
+    const entr = value.status === 'Entregue';
+    const disabled = (prep || tras || entr);
     setDisablePreparing(disabled);
   };
 
   const disableDispatchBtn = (valueOrder) => {
     const disabled = (
-      valueOrder.status === 'Pendente' || valueOrder.status === 'Em Trânsito'
+      valueOrder.status === 'Pendente' || valueOrder.status === EMTRANSITO
       || valueOrder.status === 'Entregue'
     );
     setDisableDispatch(disabled);
@@ -106,7 +106,7 @@ function SellerOrderDetails() {
           type="button"
           disabled={ disableDispatch }
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => handleStatus(order.id, 'Em Trânsito') }
+          onClick={ () => handleStatus(order.id, EMTRANSITO) }
         >
           SAIU PARA ENTREGA
         </button>
