@@ -23,6 +23,24 @@ function SellerOrderDetails() {
       });
   }, [location.pathname]);
 
+  const handleStatus = (id, status) => {
+    const { token } = getLocalStorage('user');
+    const data = { status };
+    const header = {
+      headers: {
+        authorization: token,
+      },
+    };
+
+    api.patch(`/seller/order/${id}`, data, header)
+      .then((res) => {
+        const orderUpdate = res.data;
+        console.log(orderUpdate);
+      }).catch((error) => {
+        console.log(error);
+      });
+  };
+
   const validateDate = (date) => {
     const MIN = 10;
     const formatDate = new Date(date);
@@ -55,6 +73,7 @@ function SellerOrderDetails() {
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
+          onClick={ () => handleStatus(order.id, 'Preparando') }
         >
           PREPARAR PEDIDO
         </button>
@@ -62,6 +81,7 @@ function SellerOrderDetails() {
           type="button"
           disabled={ Object.keys(order).length > 0 && order.status === 'Pendente' }
           data-testid="seller_order_details__button-dispatch-check"
+          onClick={ () => handleStatus(order.id, 'Em trânsito') }
         >
           SAIU PARA ENTREGA
         </button>

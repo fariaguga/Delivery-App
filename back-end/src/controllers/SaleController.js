@@ -46,6 +46,19 @@ class SaleController {
       next(error);
     }
   }
+
+  async updateStatus(req, res, next) {
+    try {
+      const { authorization } = req.headers;
+      const { id } = req.params;
+      const { status } = req.body;
+      jwtValidate(authorization);
+      const serviceResponse = await this.service.updateStatus(id, status);
+      return res.status(200).json(serviceResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = SaleController;

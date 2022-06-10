@@ -44,6 +44,20 @@ class SaleService {
     console.log(sale);
     return sale;
   }
+
+  async updateStatus(id, status) {
+    const statusUpdate = await this.model.update(
+      {
+        status,
+      },
+      {
+        where: { id },
+      },
+    );
+    await statusUpdate.save();
+    console.log(statusUpdate);
+    return statusUpdate;
+  }
 }
 
 module.exports = SaleService;
