@@ -1,3 +1,4 @@
+const Product = require('../database/models/product');
 const SaleModel = require('../database/models/sale');
 const SalesProducts = require('../database/models/salesProducts');
 
@@ -25,6 +26,40 @@ class SaleService {
           quantity: p.quantity,
         })),
     );
+  }
+
+  async findOne(id) {
+    const sale = await this.model.findOne({
+      where: { id },
+      include: {
+          model: SalesProducts,
+          as: 'sale',
+          include: [{
+            model: Product, 
+            as: 'product',
+          }],
+        },
+    });
+    return sale;
+  }
+
+  async updateStatus(id, status) {
+    await this.model.update(
+      { status },
+      { where: { id }, returning: true },
+    );
+    const statusUpdate = await this.model.findOne({
+      where: { id },
+      include: {
+          model: SalesProducts,
+          as: 'sale',
+          include: [{
+            model: Product, 
+            as: 'product',
+          }],
+        },
+    });
+    return statusUpdate;
   }
 }
 

@@ -33,15 +33,22 @@ SalesProducts.init(
   {
     underscored: true,
     sequelize: db,
-    modelName: 'salesProducts',
+    modelName: 'SalesProducts',
+    tableName: 'sales_products',
     timestamps: false,
   }
 );
 
-SalesProducts.belongsTo(Sale, { foreignKey: 'saleId' });
-SalesProducts.belongsTo(Product, { foreignKey: 'productId' });
+Product.hasMany(Sale, { foreignKey: 'id', as: 'sale' });
+Sale.hasMany(Product, { foreignKey: 'id', as:'product' });
 
-Sale.hasMany(SalesProducts, { foreignKey: 'saleId' });
-Product.hasMany(SalesProducts, { foreignKey: 'productId' });
+SalesProducts.belongsTo(Product, { foreignKey: 'productId', as: 'product'});
+SalesProducts.belongsTo(Sale, { foreignKey: 'saleId', as: 'sale'});
+
+Product.hasMany(SalesProducts, { foreignKey: 'productId', as: 'product'});
+Sale.hasMany(SalesProducts, { foreignKey: 'saleId', as: 'sale'});
+
+Product.belongsToMany(Sale, { through: SalesProducts, foreignKey: 'productId', as: 'sales' });
+Sale.belongsToMany(Product, { through: SalesProducts, foreignKey: 'saleId', as: 'products' });
 
 module.exports = SalesProducts;

@@ -5,8 +5,8 @@ import Login from './pages/Login';
 import './styles/global.scss';
 import Register from './pages/Register';
 import Products from './pages/Products';
-import SellerOrders from './pages/Seller-Orders';
-import OrderDetails from './pages/OrderDetails';
+import SellerOrders from './pages/SellerOrders';
+import SellerOrder from './pages/SellerOrder';
 import CartProvider from './context/cartProvider';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
@@ -30,7 +30,7 @@ function App() {
           }
         />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
-        <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
+        <Route path="/seller/orders/:id" element={ <SellerOrder /> } />
         <Route
           path="/customer/checkout"
           element={

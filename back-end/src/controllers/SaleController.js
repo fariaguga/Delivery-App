@@ -6,6 +6,8 @@ class SaleController {
     this.service = service;
 
     this.create = this.create.bind(this);
+    this.findOne = this.findOne.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
   }
 
   async create(req, res, next) {
@@ -31,6 +33,31 @@ class SaleController {
       return res.status(201).json(createdSale);
     } catch (e) {
       next(e);
+    }
+  }
+
+  async findOne(req, res, next) {
+    try {
+      const { authorization } = req.headers;
+      const { id } = req.params;
+      jwtValidate(authorization);
+      const serviceResponse = await this.service.findOne(id);
+      return res.status(200).json(serviceResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateStatus(req, res, next) {
+    try {
+      const { authorization } = req.headers;
+      const { id } = req.params;
+      const { status } = req.body;
+      jwtValidate(authorization);
+      const serviceResponse = await this.service.updateStatus(id, status);
+      return res.status(200).json(serviceResponse);
+    } catch (error) {
+      next(error);
     }
   }
 }
